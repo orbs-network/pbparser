@@ -359,7 +359,7 @@ func (p *parser) readField(pf *ProtoFile, label string, documentation string, ct
 	var err error
 	dataTypeStr := label
 	if label == required || label == optional || label == repeated {
-		if ctx.ctxType == oneOfCtx {
+		if ctx.ctxType == oneOfCtx && label != repeated { // Fix so that membuf supports oneof can be a repeated primitive
 			return p.errline("Label '%v' is disallowed in oneoff field", label)
 		}
 		fe.Label = label
